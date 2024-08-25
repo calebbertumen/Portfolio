@@ -1,32 +1,38 @@
-import { Box, Grid, Link, Stack, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
+//images
 import PaymentsCover from "../assets/Payments Website Cover.png";
 import IllDecideCover from "../assets/Ill Decide Cover.png";
-import { useRef } from "react";
-import { useInView } from "framer-motion";
 
-type MyComponentProps = React.PropsWithChildren<object>;
-
-function Section({ children }: MyComponentProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  return (
-    <section ref={ref}>
-      <span
-        style={{
-          transform: isInView ? "none" : "translateX(-200px)",
-          opacity: isInView ? 1 : 0,
-          transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
-        }}
-      >
-        {children}
-      </span>
-    </section>
-  );
-}
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
 
 function Projects() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <motion.div
@@ -44,102 +50,94 @@ function Projects() {
       </motion.div>
 
       {/* Project #1 */}
-      <Section>
-        <Grid
-          container
-          columnSpacing={4}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            px: 5,
-            pb: 40,
-          }}
-        >
-          <Grid item xs={7}>
+      <Box sx={{ width: "50%" }}>
+        <React.Fragment>
+          <Button variant="outlined" onClick={handleClickOpen}>
             <Box
               bgcolor={"#333333"}
               sx={{ p: 1, display: "flex", justifyContent: "center" }}
             >
               <img src={PaymentsCover} width="90%" alt="" />
             </Box>
-          </Grid>
-          <Grid item xs={5}>
-            <Stack>
-              <Typography variant="h4" align="center" gutterBottom>
-                Payments Website
-              </Typography>
-              <Typography variant="subtitle1" align="center">
-                About Parapgraph
-              </Typography>
+          </Button>
+          <BootstrapDialog
+            onClose={handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={open}
+          >
+            <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+              Payments Website
+            </DialogTitle>
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <DialogContent dividers>
+              <Typography gutterBottom>About Parapgraph</Typography>
+            </DialogContent>
+            <DialogActions>
               <Link href="https://github.com/calebbertumen/PaymentsWebApp">
-                <Typography align="center">Github Repo</Typography>
+                <Button autoFocus onClick={handleClose}>
+                  <Typography align="center">Github Repo</Typography>
+                </Button>
               </Link>
-            </Stack>
-          </Grid>
-        </Grid>
-      </Section>
+            </DialogActions>
+          </BootstrapDialog>
+        </React.Fragment>
+      </Box>
 
       {/* Project #2 */}
-      <Section>
-        <Grid
-          container
-          columnSpacing={4}
-          sx={{ display: "flex", justifyContent: "center", px: 5, pb: 40 }}
-        >
-          <Grid item xs={5}>
-            <Stack>
-              <Typography variant="h4" align="center" gutterBottom>
-                "I'll Decide" Restaurant Generator
-              </Typography>
-              <Typography variant="subtitle1" align="center">
-                About Parapgraph
-              </Typography>
-              <Link href="https://github.com/calebbertumen/Ill-Decide">
-                <Typography align="center">Github Repo</Typography>
-              </Link>
-            </Stack>
-          </Grid>
-          <Grid item xs={7}>
+      <Box sx={{ width: "50%" }}>
+        <React.Fragment>
+          <Button variant="outlined" onClick={handleClickOpen}>
             <Box
               bgcolor={"#333333"}
               sx={{ p: 1, display: "flex", justifyContent: "center" }}
             >
               <img src={IllDecideCover} width="90%" alt="" />
             </Box>
-          </Grid>
-        </Grid>
-      </Section>
-
-      {/* Project #3 */}
-      <Section>
-        <Grid
-          container
-          columnSpacing={4}
-          sx={{ display: "flex", justifyContent: "center", px: 5, pb: 40 }}
-        >
-          <Grid item xs={7}>
-            <Box
-              bgcolor={"#333333"}
-              sx={{ p: 1, display: "flex", justifyContent: "center" }}
+          </Button>
+          <BootstrapDialog
+            onClose={handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={open}
+          >
+            <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+              "I'll Decide" Restaurant Generator
+            </DialogTitle>
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
             >
-              <img src={PaymentsCover} width="90%" alt="" />
-            </Box>
-          </Grid>
-          <Grid item xs={5}>
-            <Stack>
-              <Typography variant="h4" align="center" gutterBottom>
-                Shopping LIst
-              </Typography>
-              <Typography variant="subtitle1" align="center">
-                About Parapgraph
-              </Typography>
-              <Link>
-                <Typography align="center">Github Repo</Typography>
+              <CloseIcon />
+            </IconButton>
+            <DialogContent dividers>
+              <Typography gutterBottom>About Parapgraph</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Link href="https://github.com/calebbertumen/Ill-Decide">
+                <Button autoFocus onClick={handleClose}>
+                  <Typography align="center">Github Repo</Typography>
+                </Button>
               </Link>
-            </Stack>
-          </Grid>
-        </Grid>
-      </Section>
+            </DialogActions>
+          </BootstrapDialog>
+        </React.Fragment>
+      </Box>
     </>
   );
 }
